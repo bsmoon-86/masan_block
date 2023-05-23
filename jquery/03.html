@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <p>
+        Hello
+    </p>
+    How are
+    <p>
+        you?
+    </p>
+    <button>삭제</button>
+    <script>
+        $('button')     // button이라는 태그를 선택
+        .click(function(){  // 선택된 태그가 마우스 좌클릭이 되었을때
+            // $('p').hide()   // p태그를 선택하여 숨겨준다.
+            $('p').css('display', 'none')
+        })
+    </script>
+</body>
+</html>

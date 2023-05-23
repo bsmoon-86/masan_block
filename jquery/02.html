@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <ul class = 'first'>
+        <li class = 'foo'>list1</li>
+        <li>list2</li>
+        <li class="bar">list3</li>
+    </ul>
+    <ul class = 'second'>
+        <li class = 'foo'>list1</li>
+        <li>list2</li>
+        <li class = 'bar'>list3</li>
+    </ul>
+    <script>
+        // 선택자
+        // 태그명 (ex : p , h1, table)
+        // ID값 ( ex : #id명 )
+        // CSS선택자(class) ( ex : .클래스명 )
+        $('ul.first')   // ul 태그중에 class가 first인 태그 선택
+        .find('.foo')   // 선택받은 태그 안에서 class가 foo인 태그를 선택
+        .css('background-color', 'red')
+        // find() 함수를 선택한 태그에서 여러 번 사용을 하는 경우에는 
+        // 진행되고 있는 find() 종료하고
+        // 다음의 find() 호출
+        .end()
+        $('ul.second')
+        .find('.bar')
+        .css('background-color', 'blue')
+        .end()
+    </script>
+</body>
+</html>
