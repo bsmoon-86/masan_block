@@ -22,10 +22,45 @@ const connection = mysql.createConnection({
     database : process.env.database
 })
 
+// 세션 설정
+const session = require('express-session')
+app.use(
+    session({
+        secret : process.env.session_key, 
+        resave : false, 
+        saveUninitialized : false, 
+        cookie : {
+            maxAge : 10000   //session 데이터를 얼마만큼 유지할지 지정 (1000이 1초)
+        }
+    })
+)
+
+
 // api 생성 
 // localhost:3000/ 주소로 요청 시
 app.get("/", function(req, res){
-    res.render('index')
+    // session안에 login 값이 존재하면 /main 이라는 주소 이동
+    if(!req.session.login){
+        res.render('index')
+    }else{
+        res.redirect('/main')
+    }
+})
+
+app.get('/main', function(req, res){
+    if(!req.session.login){
+        res.redirect("/")
+    }else{
+        // ejs 파일과 데이터를 같이 보내준다. 
+        // 로그인을 한 계정의 이름과 휴대폰 번호를 보내준다.
+        // 로그인을 한 계정의 정보는 req.session.login에 존재
+        // 로그인을 한 계정의 이름 정보는 req.session.login.name
+        // 로그인을 한 계정의 휴대폰 정보는 req.session.login.phone
+        res.render('main', {
+            'name' : req.session.login.name, 
+            'phone' : req.session.login.phone
+        })
+    }
 })
 
 // 회원가입 api 생성
@@ -69,6 +104,34 @@ app.get('/check_id', function(req, res){
 })
 
 
+// 회원 정보를 가지고 데이터베이스에 insert 작업하는 주소 생성
+app.post('/signup2', function(req, res){
+    // 유저가 입력한 데이터들을 변수에 대입
+    const _id = req.body._id
+    const _pass = req.body._pass
+    const _name = req.body._name
+    const _phone = req.body._phone
+    console.log(_id, _pass, _name, _phone)
+
+    // 유저가 보낸 데이터를 데이터베이스에 삽입
+    connection.query(
+        `insert into 
+        user_info 
+        values 
+        (?, ?, ?, ?)`, 
+        [_id, _pass, _name, _phone], 
+        function(err, result){
+            if(err){
+                console.log('signup2 insert error', err)
+                res.send('signup2 insert error')
+            }else{
+                console.log(result)
+                res.redirect('/')
+            }
+        }
+    )
+})
+
 
 // 로그인 api 생성
 app.post('/login', function(req, res){
@@ -104,9 +167,13 @@ app.post('/login', function(req, res){
 
                 // result의 (길이가 0이 아닌 경우) 로그인이 성공
                 if (result.length != 0 ){
-                    res.send('로그인 성공')
+                    // result -> [{id:xxx, password:xxxx, name:xxx, phone:xxxxx}]
+                    // result[0] -> {id:xxx, password:xxxx, name:xxx, phone:xxxxx}
+                    // 로그인이 성공하였을때 session에 데이터를 저장
+                    req.session.login = result[0]
+                    res.redirect("/")
                 }else{
-                    res.send('로그인 실패')
+                    res.redirect("/")
                 }
                 // 아니면 로그인 실패
             }
