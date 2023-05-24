@@ -1,0 +1,72 @@
+명령 프롬프트 에서 sql 접속 
+
+mysql -u root -p
+
+mysql 설치할때 등록한 password를 입력하여준다. 
+
+
+create문 데이터베이스, 테이블 생성 
+
+CREATE DATABASE masan; --> 데이터베이스 생성
+use masan; --> masan이라는 데이터베이스를 사용
+
+회원 가입 테이블 생성 
+	필드 : ID(문자열, primary key), Password(문자열, null 금지), name(문자열, null 금지), phone(문자열)
+	휴대폰 번호를 문자열로 지정하는 이유는 번호의 앞자리가 0으로 시작하기 때문이다. 
+	숫자형으로 사용을 하게 되면 앞자리 0은 삭제
+
+create table user_info (
+	id varchar(16) primary key, 
+	password varchar(16) not null, 
+	name varchar(16) not null, 
+	phone varchar(16)
+);
+
+생성한 테이블에 phone 필드에 not null이라는 제약 조건을 추가 
+
+alter table user_info 
+	modify column 
+	phone varchar(16) not null;
+
+테이블의 정보를 출력
+desc user_info;
+
+
+user_info 테이블에 새로운 필드를 추가 
+
+alter table user_info add address varchar(32);
+
+user_info 테이블에서 address 필드를 삭제
+
+alter table user_info drop address;
+
+
+user_info 테이블에 데이터를 삽입
+
+insert into user_info (id, password, name, phone) values ('test', '1234', 'test', '01011112222');
+
+테이블에 모든 필드에 데이터를 삽입하는 경우에는 필드이름을 생략한다. 
+insert into user_info values ('test2', '1111', 'test2', '01012345678');
+
+테이블 여러 데이터를 삽입하는 경우
+insert into user_info values ('test3', '1234', 'test3', '01099998888'), ('test4', '1111', 'test4', '01088882222');
+
+
+테이블의 전체 데이터를 조회
+
+select * from user_info;
+
+
+테이블 내의 데이터를 수정(id가 test2인 행의 password를 1234로 변경)
+
+update user_info set password = '1234' where id = 'test2';
+where절을 사용하지 않으면 테이블 내의 데이터들이 모두 변경
+
+
+테이블 내의 데이터를 삭제 (id가 test3인 데이터를 삭제)
+
+delete from user_info where id = 'test3';
+
+mysql에서 빠져나오는 방법
+
+exit

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <style>
+        .display{
+            display : none;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'check_id'>
+        <label>id</label>
+        <input type="text" id="input_id"><br>
+        <button id="bt">아이디 중복 체크</button>
+        <p></p>
+    </div>
+        
+    <form action="/signup2" method="post">
+        <div id = 'info' class="display">
+            <label>id</label>
+            <input type="text" id="_id" name="_id"><br>
+            <label>password</label>
+            <input type="password" name="_pass"><br>
+            <label>name</label>
+            <input type="text" name="_name"><br>
+            <label>phone</label>
+            <input type="text" name="_phone"><br>
+            <input type="submit">
+        </div>
+    </form>
+    <script>
+        // jquery 이용하여 태그를 제어 
+        // ajax 라는 기능을 이용하여 비동기 통신
+        $('#bt')    // id가 bt라는 태그를 선택
+        .click(function(){
+            // 버튼이 클릭이 되면 ajax를 이용하여 비동기 통신
+            $.ajax(     // 비동기 통신 요청을 보내는 부분
+                {
+                    url : '/check_id',      //비동기 통신을 할 주소
+                    method : 'get',     //요청을 보내는 방식
+                    datatype : 'json',  //보내는 데이터의 형태
+                    data : {            //보내는 데이터
+                        _id : $('#input_id').val()
+                    }
+                }
+            )
+            // 요청을 완료하고 응답이 들어오는 콜백함수
+            .done(function(result){
+                // result : 비동기 요청 후 서버가 유저에게 보내는 데이터
+                // /ajax에서 보내온 데이터는 아이디가 존재하면 false
+                // 아이디가 존재하지 않으면 true
+                // true이면 비밀번호, 이름을 입력할 수 있는 공간 보여준다.
+                // id가 bt인 버튼을 숨긴다. 
+                // false이면 p태그에 사용 할 수 없는 아이디입니다. 
+                if (result) {
+                    // toggleClass(클래스명) : 클래스명이 해당하는 태그에 존재하면 삭제, 존재하지 않으면 삽입
+                    $('#info').toggleClass('display')
+                    $('#check_id').toggleClass('display')
+                    $('#_id').attr('value', $('#input_id').val())
+                }else {
+                    $('p').text('사용할 수 없는 아이디입니다.')
+                }
+                // $('p').text(result)
+            })
+        })
+    </script>
+</body>
+</html>
