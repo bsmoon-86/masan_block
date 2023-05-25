@@ -121,6 +121,29 @@ app.post('/signup2', function(req, res){
     })
 })
 
+// 아이디 중복체크 api 생성
+app.get("/check_id", function(req, res){
+    // 유저가 보낸 데이터는 id 를 변수에 대입
+    const _id = req.query._id
+    console.log(_id)
+
+    // smartcontract의 view_info() 함수를 사용하여 회원 정보 유무 확인
+    smartcontract
+    .methods
+    .view_info(_id)
+    .call()
+    .then(function(result){
+        // result -> {'0':id, '1':password, '2':name, '3': phone}
+        // 등록된 회원 정보가 존재하지 않는다면 
+        // result -> {'0':"", '1':"", '2':"", '3':""}
+        if(result['0']){    //result 안에 0이라는 키값에 대응하는 value가 존재한다면
+            res.send(false)
+        }else{
+            res.send(true)
+        }
+    })
+})
+
 
 
 app.listen(3000, function(){
