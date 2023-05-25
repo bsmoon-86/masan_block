@@ -3,7 +3,7 @@ pragma solidity >=0.4.0 < 0.9.0;
 // 버전 명시
 
 // 컨트렉트의 이름을 지정 
-contract user_info{
+contract userinfo{
     // 유저의 정보를 저장 컨트렉트 
 
     // 유저의 정보를 저장하는 구조를 하나 생성
@@ -17,26 +17,6 @@ contract user_info{
         string phone;
     }
 
-    // mapping 데이터 생성
-    // mapping이 무엇인가? 
-    // json 형태와 흡사 -> key : value
-    // 유저의 ID 값을 기준으로 하여 info라는 구조체를 하나씩 대입
-    // ex) {
-        //      ID : {
-        //          state : xxxx, 
-        //          id : xxxxx,
-        //          password : xxxxx,
-        //          name : xxxx,
-        //          phone : xxxxxx
-        //      },        
-        //      ID2 : {
-        //          state : xxxx, 
-        //          id : xxxxx,
-        //          password : xxxxx,
-        //          name : xxxx,
-        //          phone : xxxxxx
-        //      },
-        // } 
     mapping (string => info) internal users;
 
     // 유저의 정보를 등록하는 함수 

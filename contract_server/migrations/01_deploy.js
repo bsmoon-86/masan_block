@@ -1,4 +1,4 @@
-const user = artifacs.require('user_info')
+const user = artifacts.require('./userinfo')
 
 module.exports = function(deployer){
     deployer.deploy(user)
