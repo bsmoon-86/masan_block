@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 외부의 있는 ejs 파일을 해당하는 곳에 포함한다.-->
+    <%- include("header.ejs") %>
+</head>
+<body>
+    <div class = 'container'>
+        <!-- table의 형태로 로그인 화면 구현 -->
+        <table class="table">
+            <form action="/login" method="post">
+                <tr>
+                    <td>
+                        ID
+                    </td>
+                    <td>
+                        <input type='text' name='input_id'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        PASSWORD
+                    </td>
+                    <td>
+                        <input type="password" name="input_pass">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="로그인" class="btn btn-success">
+                    </td>
+            </form>
+                    <td>
+                        <button class="btn btn-primary">회원가입</button>
+                    </td>
+                </tr>
+        </table>
+    </div>
+</body>
+</html>
