@@ -12,16 +12,6 @@ app.set('view engine', 'ejs')
 // post 형식으로 데이터가 들어올때 json의 형태로 변환
 app.use(express.urlencoded({extended:false}))
 
-// mysql의 정보를 등록
-const mysql = require('mysql2')
-const connection = mysql.createConnection({
-    host : process.env.host, 
-    port : process.env.port, 
-    user : process.env.user, 
-    password : process.env.password,
-    database : process.env.db 
-})
-
 // express-session 설정
 const session = require('express-session')
 app.use(
