@@ -24,6 +24,7 @@ contract food_history{
         require(foods[_code]._state == 0, "exist food");
         foods[_code]._name = _name;
         foods[_code]._type = _type;
+        foods[_code]._state = 1;
     }
 
     // 물품에 대한 내역을 추가 함수 

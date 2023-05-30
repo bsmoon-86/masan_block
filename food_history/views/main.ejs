@@ -10,5 +10,48 @@
 </head>
 <body>
     <h1>Main Page</h1>
+
+    <div class = 'container'>
+        <!-- 상품을 등록하는 입력창을 하나 구현 -->       
+        <div class="contianer">
+            <form action="/food/regist" method="get">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">식품 코드</span>
+                    <input type="text" name="input_code" class="form-control" placeholder="식품의 코드를 입력하시오" aria-label="food_code" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">식품 종류</span>
+                    <input type="text" name="input_type" class="form-control" placeholder="식품의 타입을 입력하시오" aria-label="food_code" aria-describedby="basic-addon2">
+                </div>
+                <input type="submit" value="식품 등록" class = 'btn btn-primary'>
+            </form>
+        </div>
+
+        <!-- 상품에 내역을 추가하는 입력창 하나 생성 -->
+        <div class="contianer" style="margin-top: 30px;">
+            <form action="/food/add_hist" method="get">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">식품 코드</span>
+                    <input type="text" name="input_code" class="form-control" placeholder="식품의 코드를 입력하시오" aria-label="food_code" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon4">식품 내역</span>
+                    <input type="text" name="input_hist" class="form-control" placeholder="식품의 내역을 입력하시오" aria-label="food_code" aria-describedby="basic-addon4">
+                </div>
+                <input type="submit" value="식품 내역 추가" class = 'btn btn-primary'>
+            </form>
+        </div>
+
+        <!-- 상품의 내역을 확인하는 입력창 생성 -->
+        <div class="contianer" style="margin-top: 30px;">
+            <form action="/food/view_hist" method="get">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon5">식품 코드</span>
+                    <input type="text" name="input_code" class="form-control" placeholder="식품의 코드를 입력하시오" aria-label="food_code" aria-describedby="basic-addon5">
+                </div>
+                <input type="submit" value="식품 내역 보기" class = 'btn btn-primary'>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

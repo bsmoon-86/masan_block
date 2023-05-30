@@ -37,27 +37,6 @@ app.use(
     )
 )
 
-// baobab testnet에 배포한 컨트렉트를 연동
-const contract_info = require("./build/contracts/food_history.json")
-
-// caver-js 로드 
-const Caver = require('caver-js')
-// 컨트렉트가 배포된 주소를 입력
-const caver = new Caver('https://api.baobab.klaytn.net:8651')
-// 네트워크에 있는 컨트렉트와 연동
-const smartcontract = new caver.klay.Contract(
-    contract_info.abi, 
-    contract_info.networks['1001'].address
-)
-
-// 수수료를 지불할 지갑의 정보를 입력
-const account = caver.klay.accounts.createWithAccountKey(
-    process.env.public_key, 
-    process.env.private_key
-)
-// 해당하는 네트워크에서 사용할수 있게 지갑을 등록
-caver.klay.accounts.wallet.add(account)
-
 // api들을 생성
 // localhost:3000/ 요청시 
 app.get('/', function(req, res){
@@ -88,6 +67,9 @@ app.get("/main", function(req, res){
 const user = require('./routes/user')()
 // 특정 주소로 요청이 들어왔을때는 해당하는 js 파일을 사용
 app.use("/user", user)
+
+const food = require("./routes/food")()
+app.use("/food", food)
 
 
 app.listen(3000, function(){
