@@ -74,6 +74,21 @@ app.get('/', function(req, res){
     }
 })
 
+app.get("/main", function(req, res){
+    // session 존재 유무에 따른 조건식 생성
+    if(!req.session.login){
+        res.redirect('/')
+    }else{
+        res.render('main')
+    }
+})
+
+// 로그인에 관련된 주소 값들은 다른 파일에서 로드해서 사용
+// routes 폴더 안에 있는 js파일을 로드 
+const user = require('./routes/user')()
+// 특정 주소로 요청이 들어왔을때는 해당하는 js 파일을 사용
+app.use("/user", user)
+
 
 app.listen(3000, function(){
     console.log('server start')
