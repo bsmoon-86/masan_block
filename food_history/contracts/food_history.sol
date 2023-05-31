@@ -7,8 +7,10 @@ contract food_history{
     struct history{
         uint8 _state;
         string _name;
+        address _wallet;
         string _type;
         string[] _hist;
+        uint _price;
     }
 
     // mapping 생성
@@ -25,6 +27,24 @@ contract food_history{
         foods[_code]._name = _name;
         foods[_code]._type = _type;
         foods[_code]._state = 1;
+        foods[_code]._wallet = msg.sender;
+    }
+
+    // 물품의 가격을 등록하는 함수 생성 
+    function regist_price(
+        string memory _code, 
+        uint _price
+    )public {
+        require(foods[_code]._state != 0, "not exist food");
+        foods[_code]._price = _price;
+    }
+
+    // 물품이 거래가 성사되었을때 상태를 변경하는 함수
+    function change_state(
+        string memory _code
+    ) public {
+        require(foods[_code]._state == 1, 'error');
+        foods[_code]._state = 9;
     }
 
     // 물품에 대한 내역을 추가 함수 
@@ -45,11 +65,17 @@ contract food_history{
     ) public view returns (
         string memory, 
         string memory, 
-        string[] memory){
+        string[] memory, 
+        address, 
+        uint, 
+        uint8){
             string memory _name = foods[_code]._name;
             string memory _type = foods[_code]._type;
             string[] memory _hist = foods[_code]._hist;
-            return (_name, _type, _hist);
+            address _wallet = foods[_code]._wallet;
+            uint _price = foods[_code]._price;
+            uint8 _state = foods[_code]._state;
+            return (_name, _type, _hist, _wallet, _price, _state);
         }
 
 

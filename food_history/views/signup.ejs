@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- header 파일 포함 -->
+    <%- include('header.ejs')%>
+</head>
+<body>
+    <h1>회원 가입 화면</h1>
+
+    <div class="container">
+        <form action="/user/add_user2", method="post">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">ID</span>
+                <input type="text" name="input_id" class="form-control" placeholder="ID 입력하시오" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">PASSWORD</span>
+                <input type="password" name="input_pass" class="form-control" placeholder="Password 입력하시오" aria-label="Username" aria-describedby="basic-addon2">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">NAME</span>
+                <input type="text" name="input_name" class="form-control" placeholder="Name 입력하시오" aria-label="Username" aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon4">PHONE</span>
+                <input type="text" name="input_phone" class="form-control" placeholder="Phone 입력하시오" aria-label="Username" aria-describedby="basic-addon4">
+            </div>
+            <input type="submit" value="회원 가입">  
+        </form>
+    </div>
+</body>
+</html>
