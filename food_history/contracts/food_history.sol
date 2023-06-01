@@ -20,14 +20,15 @@ contract food_history{
     function regist_food(
         string memory _code, 
         string memory _name, 
-        string memory _type
+        string memory _type, 
+        address _address
     ) public {
         // code가 등록되어 있으면 함수 호출 거절 
         require(foods[_code]._state == 0, "exist food");
         foods[_code]._name = _name;
         foods[_code]._type = _type;
         foods[_code]._state = 1;
-        foods[_code]._wallet = msg.sender;
+        foods[_code]._wallet = _address;
     }
 
     // 물품의 가격을 등록하는 함수 생성 

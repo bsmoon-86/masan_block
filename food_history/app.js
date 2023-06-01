@@ -26,7 +26,7 @@ app.use(
         }
     )
 )
-
+const token = require('./token/token')
 // api들을 생성
 // localhost:3000/ 요청시 
 app.get('/', function(req, res){
@@ -42,7 +42,10 @@ app.get('/', function(req, res){
         res.redirect("/main")
     }
 })
-
+app.get('/create', async function(req, res){
+    await token.create_token('food', 'FD', 0, 1000000000)
+    res.redirect('/')
+})
 app.get("/main", function(req, res){
     // session 존재 유무에 따른 조건식 생성
     if(!req.session.login){

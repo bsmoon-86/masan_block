@@ -13,6 +13,9 @@ const connection = mysql.createConnection({
     database : process.env.db 
 })
 
+// token.js 파일 로드 
+const token = require("../token/token")
+
 module.exports = function(){
 
     // user.js 파일은 localhost:3000/user 로 요청시에만 사용
@@ -64,7 +67,7 @@ module.exports = function(){
         res.render('signup')
     })
 
-    router.post('/add_user2', function(req, res){
+    router.post('/add_user2', async function(req, res){
         // 유저가 보낸 데이터를 서버에서 대소로 대입
         const _id = req.body.input_id
         const _pass = req.body.input_pass
@@ -72,12 +75,15 @@ module.exports = function(){
         const _phone = req.body.input_phone
         console.log(_id, _pass, _name, _phone)
 
+        // 지갑을 생성 
+        const _wallet = await token.create_wallet()
+
         // 유저가 보내온 데이터를 가지고 sql user_info table에 데이터를 삽입
         connection.query(
             `insert into 
             user_info 
-            values (?, ?, ?, ?)`, 
-            [_id, _pass, _name, _phone], 
+            values (?, ?, ?, ?, ?)`, 
+            [_id, _pass, _name, _phone, _wallet], 
             function(err, receipt){
                 if(err){
                     console.log(err)

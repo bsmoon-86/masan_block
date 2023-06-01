@@ -7,6 +7,11 @@
     <title>Document</title>
     <!-- header 파일 포함 -->
     <%- include('header.ejs') %>
+    <script>
+        function trade(code){
+            location.href = '/food/trade/'+code
+        }
+    </script>
 </head>
 <body>
     <h1>식품의 내역</h1>
@@ -19,6 +24,22 @@
                 </th>
                 <td>
                     <%=name%>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    등록자의 지갑 주소
+                </th>
+                <td>
+                    <%=wallet%>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    가격
+                </th>
+                <td>
+                    <%=price%>
                 </td>
             </tr>
             <tr>
@@ -53,6 +74,7 @@
             <%}%>
         </table>
 
+        <button class="btn btn-danger" onclick="trade('<%=code%>')" >구매</button>
     </div>
 </body>
 </html>

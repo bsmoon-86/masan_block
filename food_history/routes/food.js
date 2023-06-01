@@ -22,6 +22,9 @@ const account = caver.klay.accounts.createWithAccountKey(
 // 해당하는 네트워크에서 사용할수 있게 지갑을 등록
 caver.klay.accounts.wallet.add(account)
 
+// token.js 로드 
+const token = require("../token/token")
+
 module.exports = function(){
 
     //이 파일은 기본 경로가 localhost:3000/food
@@ -38,12 +41,15 @@ module.exports = function(){
         // name 값을 가지고 오려면 session 안에 있는 name을 추출
         const _name = req.session.login['name']
         console.log(_name)
-        
+        // session 안에 있는 로그인 한 사람의 지갑 주소를 
+        // 추출
+        const addr = req.session.login.wallet
+        console.log(addr)
 
         // smartcontract에 있는 method를 사용
         smartcontract
         .methods
-        .regist_food(_code, _name, _type)
+        .regist_food(_code, _name, _type,  addr)
         .send(
             {
                 from : account.address, 
@@ -96,9 +102,66 @@ module.exports = function(){
             res.render('food_hist', {
                 'name' : result['0'], 
                 'type' : result['1'], 
-                'hist' : result['2']
+                'hist' : result['2'], 
+                'wallet' : result['3'], 
+                'price' : result[4] , 
+                'code' : _code
             })
         })
+    })
+
+    router.get("/add_price", function(req, res){
+        // 유저가 입력한 데이터 2개를 변수에 대입
+        const _code = req.query.input_code
+        const _price = req.query.input_price
+        console.log(_code, _price)
+
+        // 해당하는 값을 smartcontract에 있는 method 호출
+        smartcontract
+        .methods
+        .regist_price(_code, _price)
+        .send({
+            from : account.address, 
+            gas : 2000000
+        })
+        .then(function(receipt){
+            console.log(receipt)
+            res.redirect("/")
+        })
+    })
+
+    router.get('/trade/:code', async function(req, res){
+        // 프론트 화면에서 보낸 데이터를 변수에 대입
+        const _code = req.params.code
+        let price
+        let wallet
+        // code값을 기준으로 view function 호출
+        await smartcontract
+        .methods
+        .view_food(_code)
+        .call()
+        .then(function(result){
+            price = result['4']
+            wallet = result['3']
+        })
+
+        const receipt = await token.trade_token(wallet, price)
+        console.log(receipt)
+
+        // state를 변경하는 함수 호출
+        await smartcontract
+        .methods
+        .change_state(_code)
+        .send({
+            from : account.address, 
+            gas : 2000000
+        })
+        .then(function(receipt2){
+            console.log(receipt2)
+            res.redirect("/")
+        })
+
+
     })
 
     return router

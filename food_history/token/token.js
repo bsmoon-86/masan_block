@@ -13,7 +13,7 @@ console.log(accesskeyId, secretAccessKey)
 const chainid = 1001
 
 caver.initKASAPI(chainid, accesskeyId, secretAccessKey)
-
+console.log(process.env.private_key)
 // KAS에서 외부의 지갑을 사용하려면 KAS wallet에 지갑을 등록
 const keyringContainer = new caver.keyringContainer()
 const keyring = keyringContainer.keyring.createFromPrivateKey(
@@ -34,12 +34,12 @@ async function create_token(_name, _symbol, _decimal, _amount){
         keyringContainer
     )
     const addr = kip7._address
-    console.log(addr)
+    console.log('token_address :', addr)
     const kip7_address = {'address' : addr}
     // 문자형으로 변환
     const data = JSON.stringify(kip7_address)
     // JSON 파일의 형태로 저장
-    fs.writeFileSync('kip7.json', data)
+    fs.writeFileSync('./token/kip7.json', data)
     return "토큰 발행 완료"
 }
 
@@ -107,9 +107,23 @@ async function balance_of(_address){
     return balance
 }
 
+// 지갑을 생성하는 함수 생성
+async function create_wallet(){
+    const wallet = await caver.kas.wallet.createAccount()
+    console.log(wallet)
+    return wallet.address
+}
+
+// 지갑 생성하는 함수 호출
+// create_wallet()
+
 // 해당하는 함수들을 외부에서 사용을 할 수 있게 export
 module.exports = {
-    create_token, trade_token, trans_from_token, balance_of
+    create_token, 
+    trade_token, 
+    trans_from_token, 
+    balance_of, 
+    create_wallet
 }
 
 
