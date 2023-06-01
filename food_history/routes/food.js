@@ -104,7 +104,8 @@ module.exports = function(){
                 'type' : result['1'], 
                 'hist' : result['2'], 
                 'wallet' : result['3'], 
-                'price' : result[4] , 
+                'price' : result['4'] , 
+                'state' : result['5'], 
                 'code' : _code
             })
         })

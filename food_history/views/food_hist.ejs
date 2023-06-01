@@ -36,6 +36,18 @@
             </tr>
             <tr>
                 <th>
+                    판매 상황
+                </th>
+                <td>
+                    <% if (state == 1) {%>
+                        판매 중
+                    <% } else { %>
+                        판매 완료
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <th>
                     가격
                 </th>
                 <td>
@@ -73,8 +85,9 @@
                 </tr>
             <%}%>
         </table>
-
-        <button class="btn btn-danger" onclick="trade('<%=code%>')" >구매</button>
+        <% if (state == 1){%>
+            <button class="btn btn-danger" onclick="trade('<%=code%>')" >구매</button>
+        <% } %>
     </div>
 </body>
 </html>
