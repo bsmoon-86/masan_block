@@ -69,6 +69,12 @@ contract subcontract {
         uint8 _state = sub_contract[_no].state;
         address _a = sub_contract[_no].a_company;
         address _b = sub_contract[_no].b_company;
-        // 
+        // 변수로 대입한 값을 되돌려준다. 
+        return (_title, _contents, _state, _a, _b);
+    }
+
+    // 배열을 리턴해주는 함수 생성
+    function view_contracts() public view returns(uint64[] memory){
+        return (contracts);
     }
 }
