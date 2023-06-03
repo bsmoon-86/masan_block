@@ -55,6 +55,39 @@ module.exports = function(){
             res.redirect('/')
         })
     })
+    // localhost:3000/contract/list 주소로 요청 시
+    router.get("/list", async function(req, res){
+        // 블록체인에 저장된 계약서 리스트를 호출
+        const result = await smartcontract
+                        .methods
+                        .view_contracts()
+                        // view 함수임으로 call()을 사용
+                        .call()
+        console.log(result)
+        const len_contract = result['0']
+        const contracts = result['1']
+        // view_contracts는 계약서의 목록 리턴
+        // view contract는 계약서 하나의 정보를 리턴
+
+        // 배열 변수를 생성
+        const con_list = new Array()
+
+        // 반복문을 사용하여 리스트의 계약서 정보들을 
+        // con_list에 추가한다.
+        for (var i = 0; i < len_contract; i++){
+            const con_info = await smartcontract
+            .methods
+            .view_contract(contracts[i])
+            .call()
+            con_list.push(con_info)
+        }
+
+        // res.send(con_list)
+        res.render('list', {
+            'data_list' : con_list
+        })
+
+    })
 
     return router
 }

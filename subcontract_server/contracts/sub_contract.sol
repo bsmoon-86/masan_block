@@ -74,7 +74,10 @@ contract subcontract {
     }
 
     // 배열을 리턴해주는 함수 생성
-    function view_contracts() public view returns(uint64[] memory){
-        return (contracts);
+    function view_contracts() public view returns(
+        uint ,uint64[] memory){
+        uint count = contracts.length;
+        return (count, contracts);
     }
+
 }
