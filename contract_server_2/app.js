@@ -14,6 +14,10 @@ app.set("view engine", 'ejs')
 // post 방식으로 유저가 데이터를 보낼때 json의 형태로 데이터를 받기위한 설정
 app.use(express.urlencoded({extended:false}))
 
+// dotenv를 사용하겠다. 
+require('dotenv').config()
+
+console.log(process.env.database)
 
 // route 지정 
 const login = require("./routes/login.js")()
