@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 회원가입 페이지로 이동하는 하이퍼링크 함수 -->
+    <script>
+        function signup(){
+            // localhost:3000/signup 주소로 이동
+            location.href = '/signup'
+        }
+    </script>
 </head>
 <body>
     <h1>Index Page</h1>
@@ -30,5 +37,7 @@
         -->
         <input type="submit">
     </form>
+    <!-- 회원 가입 주소로 이동하는 버튼 -->
+    <button onclick="signup()">회원 가입</button>
 </body>
 </html>

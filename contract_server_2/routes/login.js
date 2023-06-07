@@ -129,6 +129,47 @@ module.exports = function(){
         // })
     })
 
+    // 회원 가입 api 생성
+    router.get("/signup", function(req, res){
+        // 회원 가입 화면을 응답
+        res.render('signup.ejs')
+    })
+
+    router.post('/signup', function(req, res){
+        // 유저가 보낸 데이터를 변수에 대입 
+        const _id = req.body.input_id
+        const _pass = req.body.input_pass
+        const _name = req.body.input_name
+        const _phone = req.body.input_phone
+        console.log(_id, _pass, _name, _phone)
+        // 해당하는 데이터들을 DB에 저장
+        sql = `
+                insert
+                into 
+                user_info(
+                    id, 
+                    password, 
+                    name, 
+                    phone
+                )
+                values 
+                (?, ?, ?, ?)
+        `
+        data = [_id, _pass, _name, _phone]
+        connection.query(
+            sql, 
+            data, 
+            function(err, receipt){
+                if(err){
+                    console.log(err)
+                    res.send('sql error')
+                }else{
+                    res.redirect('/')
+                }
+            }
+        )
+    })
+
 
     return router
 }
