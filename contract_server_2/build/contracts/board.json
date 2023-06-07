@@ -71,7 +71,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -89,7 +90,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_no\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_title\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_content\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_writer\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_image\",\"type\":\"string\"}],\"name\":\"add_content\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_no\",\"type\":\"uint256\"}],\"name\":\"view_content\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"view_count\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/board.sol\":\"board\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/board.sol\":{\"keccak256\":\"0x2f5ca812a165fb68b90bb09599bef68c454d6af97137424d4639bb0e89c09df9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4f8bf52e5420c8134cca21a365beaa14e8e90416f63188c0b252e22a4d103533\",\"dweb:/ipfs/Qmb3G8StDyaNafWwmzwzD5NZji9csT6D2GPmMXvT1R6SiM\"]}},\"version\":1}",
@@ -9088,9 +9090,23 @@
     "name": "solc",
     "version": "0.8.19+commit.7dd6d404.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "1001": {
+      "events": {},
+      "links": {},
+      "address": "0x38a79d8ADED8e5138bF2436628A82D0E58ef9180",
+      "transactionHash": "0x88877f449459cfc8c789bc56a59a76ba356eedb3b78d8f08ab590c64a64f31c6"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xA5F0b782E1D11E1937B8c11933a342623e3868D1",
+      "transactionHash": "0xedbad890389077d1964f4249b83906df0fbe7b6a22bccfbfa896762a5d1e462d"
+    }
+  },
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-06-07T10:32:03.923Z",
+  "updatedAt": "2023-06-07T11:01:04.059Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

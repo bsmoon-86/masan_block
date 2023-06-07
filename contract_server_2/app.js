@@ -24,6 +24,10 @@ const login = require("./routes/login.js")()
 // localhost:3000/ 요청시 login.js를 사용하겠다.
 app.use("/", login)
 
+// web3를 이용하는 주소는 /eth 
+const eth = require("./routes/eth.js")()
+app.use('/eth', eth)
+
 
 app.listen(port, function(){
     console.log(port, "server start")

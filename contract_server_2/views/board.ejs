@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        function board(){
-            location.href = "/eth/board"
+        function add_content(){
+            location.href = '/eth/add_content'
         }
     </script>
 </head>
 <body>
-    <p>
-        <!-- 서버가 해당 파일과 같이 보내준 데이터를 표시 -->
-        로그인의 성공 여부 : (<%=res_data%>)
-    </p>
-    <button onclick="board()">게시판으로 이동</button>
+    <!-- 글 쓰기 버튼 생성 -->
+    <button onclick="add_content()">글 쓰기</button>
+    <!-- 글의 목록이 나타나는 테이블을 생성 -->
+
+    
 </body>
 </html>
