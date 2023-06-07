@@ -9,13 +9,44 @@
         function add_content(){
             location.href = '/eth/add_content'
         }
+
+        function view_content(_no){
+            location.href = '/eth/view_content/'+_no
+        }
     </script>
 </head>
 <body>
     <!-- 글 쓰기 버튼 생성 -->
     <button onclick="add_content()">글 쓰기</button>
     <!-- 글의 목록이 나타나는 테이블을 생성 -->
-
+    <table border="1">
+        <tr>
+            <th>
+                글 번호
+            </th>
+            <th>
+                글 제목
+            </th>
+            <th>
+                작성자
+            </th>
+        </tr>
+        <!-- for문 사용 -->
+        <%for (var i = 0; i < data_list.length;i++){%>
+            <tr onclick="view_content('<%=data_list[i][0]%>')">
+                <td>
+                    <%=data_list[i]['0']%>
+                </td>
+                <td>
+                    <%=data_list[i]['1']%>
+                </td>
+                <td>
+                    <%=data_list[i]['3']%>
+                </td>
+            </tr>
+        <%}%>
+        <!-- for문을 종료 -->
+    </table>
     
 </body>
 </html>

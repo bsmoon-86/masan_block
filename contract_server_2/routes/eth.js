@@ -32,8 +32,35 @@ web3.eth.getAccounts(function(err, ass){
 module.exports = ()=>{
     // 해당하는 파일의 기본 경로가 localhost:3000/eth
 
-    router.get("/board", (req, res)=>{
-        res.render("board.ejs")
+    router.get("/board", async (req, res)=>{
+        // block 저장된 데이터를 로드 
+        // 글목록의 배열과 배열의 크기를 리턴해주는 함수를 호출
+        const result = await smartcontract
+                        .methods
+                        .view_count()
+                        // view 함수이기 때문에 수수료가 발생하지 않는다.
+                        .call()
+        console.log(result)
+        // 빈 배열을 변수에 지정
+        const con_list = new Array()
+        const len_contents = result['0']
+        const contents = result['1']
+        // 배열의 길이만큼 view_content함수를 호출
+        // 반복문을 이용해서 리스트의 항목들을 배열에 삽입
+        for (var i = 0; i < len_contents; i++){
+            const content_info = await smartcontract
+            .methods
+            .view_content(contents[i])
+            .call()
+
+            con_list.push(content_info)
+        }
+
+        console.log(con_list)
+
+        res.render("board.ejs", {
+            'data_list' : con_list
+        })
     })
 
     router.get('/add_content', (req, res)=>{
@@ -69,6 +96,21 @@ module.exports = ()=>{
         .then(function(receipt){
             console.log(receipt)
             res.redirect("/eth/board")
+        })
+    })
+
+    router.get('/view_content/:no', async (req, res)=>{
+        const _no = req.params.no
+        console.log(_no)
+
+        // 해당하는 글의 정보를 리턴
+        const result = await smartcontract
+        .methods
+        .view_content(_no)
+        .call()
+        
+        res.render('view_content.ejs', {
+            'data' : result
         })
     })
 
