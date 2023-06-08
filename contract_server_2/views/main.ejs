@@ -9,6 +9,9 @@
         function board(){
             location.href = "/eth/board"
         }
+        function board2(){
+            location.href = "/klay/board"
+        }
     </script>
 </head>
 <body>
@@ -16,6 +19,7 @@
         <!-- 서버가 해당 파일과 같이 보내준 데이터를 표시 -->
         로그인의 성공 여부 : (<%=res_data%>)
     </p>
-    <button onclick="board()">게시판으로 이동</button>
+    <button onclick="board()">eth 게시판으로 이동</button>
+    <button onclick="board2()">klay 게시판으로 이동</button>
 </body>
 </html>

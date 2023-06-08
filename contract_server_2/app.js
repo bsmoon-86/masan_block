@@ -20,6 +20,22 @@ app.use(express.static('public'))
 // dotenv를 사용하겠다. 
 require('dotenv').config()
 
+// express-session 모듈을 로드 
+const session = require('express-session')
+// session 설정
+app.use(
+    session(
+        {
+            secret : process.env.secret, 
+            resave : false, 
+            saveUninitialized : false, 
+            cookie : {
+                maxAge : 60000  // 1000당 1초
+            }
+        }
+    )
+)
+
 console.log(process.env.database)
 
 // route 지정 
@@ -31,6 +47,9 @@ app.use("/", login)
 const eth = require("./routes/eth.js")()
 app.use('/eth', eth)
 
+// caver-js을 이용하는 주소는 /klay
+const klay = require("./routes/klay.js")()
+app.use("/klay", klay)
 
 app.listen(port, function(){
     console.log(port, "server start")

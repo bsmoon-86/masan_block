@@ -108,6 +108,8 @@ module.exports = function(){
                     if (r.length != 0){
                         // 로그인이 성공하는 경우
                         data = '로그인이 성공하였습니다. '
+                        // session에 로그인을 한 유저의 정보를 저장
+                        req.session.logined = r[0]
                     }else{
                         // 로그인이 실패하는 경우
                         data = '로그인이 실패하였습니다.'
