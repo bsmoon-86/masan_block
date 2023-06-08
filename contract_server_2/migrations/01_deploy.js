@@ -1,4 +1,4 @@
-const board = artifacts.require('board')
+const board = artifacts.require('board2')
 
 module.exports = function(deployer){
     deployer.deploy(board)

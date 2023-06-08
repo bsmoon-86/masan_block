@@ -8,8 +8,8 @@ const Web3 = require('web3')
 const web3 = new Web3(
     new Web3.providers.HttpProvider('http://127.0.0.1:7545'))
 
-// contract의 정보가 담겨져 있는 board.json을 로드 
-const contract_info = require("../build/contracts/board.json")
+// contract의 정보가 담겨져 있는 board2.json을 로드 
+const contract_info = require("../build/contracts/board2.json")
 
 // contract와의 연결
 const smartcontract = new web3.eth.Contract(
@@ -44,13 +44,12 @@ module.exports = ()=>{
         // 빈 배열을 변수에 지정
         const con_list = new Array()
         const len_contents = result['0']
-        const contents = result['1']
         // 배열의 길이만큼 view_content함수를 호출
         // 반복문을 이용해서 리스트의 항목들을 배열에 삽입
-        for (var i = 0; i < len_contents; i++){
+        for (var i = 1; i < len_contents; i++){
             const content_info = await smartcontract
             .methods
-            .view_content(contents[i])
+            .view_content(i)
             .call()
 
             con_list.push(content_info)
@@ -69,18 +68,16 @@ module.exports = ()=>{
 
     router.post('/add_content', (req, res)=>{
         // 유저가 보낸 데이터를 변수에 대입
-        const _no = req.body.input_no
         const _title = req.body.input_title
         const _content = req.body.input_content
         const _name = req.body.input_name
         const _image = req.body.input_image
-        console.log(_no, _title, _content, _name, _image)
+        console.log(_title, _content, _name, _image)
 
         // smartcontract를 이용하여 데이터를 저장 
         smartcontract
         .methods
         .add_content(
-            _no, 
             _title, 
             _content, 
             _name, 

@@ -1,7 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity = 0.8.19;
 
-contract board{
+contract board2{
+
+    // 글 번호 변수 선언
+    uint internal count;
+
+
+    // 생성자 함수  : 컨트렉트가 배포될때 최초로 한번만 실행하는 함수
+    constructor(){
+        count=1;
+    }
 
     // 게시판에 등록될 구조를 생성
     struct contents_info{
@@ -14,22 +23,20 @@ contract board{
     // mapping 데이터를 생성
     mapping(uint=>contents_info) internal contents;
 
-    // 글 목록 배열 생성
-    uint[] internal content_list ;
 
     // 글을 추가하는 함수 생성
     function add_content(
-        uint _no,
         string memory _title, 
         string memory _content, 
         string memory _writer, 
         string memory _image
     ) public{
-        contents[_no].title = _title;
-        contents[_no].content = _content;
-        contents[_no].writer = _writer;
-        contents[_no].image = _image;
-        content_list.push(_no);
+        contents[count].title = _title;
+        contents[count].content = _content;
+        contents[count].writer = _writer;
+        contents[count].image = _image;
+        // mapping에 정상적으로 데이터가 담기면 글 번호를 1씩 증가
+        count++;
     }
     // 게시글의 정보를 리턴해주는 함수
     function view_content(uint _no) public view returns (
@@ -45,8 +52,8 @@ contract board{
             return (_no, title, content, writer, image);
         }
 
-    // 글 목록 배열의 크기와 배열을 리턴해주는 함수
-    function view_count() public view returns(uint, uint[] memory){
-        return (content_list.length, content_list);
+    // count 변수를 리턴해주는 함수
+    function view_count() public view returns(uint){
+        return (count);
     }
 }

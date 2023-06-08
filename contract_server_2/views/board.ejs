@@ -14,12 +14,13 @@
             location.href = '/eth/view_content/'+_no
         }
     </script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
     <!-- 글 쓰기 버튼 생성 -->
-    <button onclick="add_content()">글 쓰기</button>
+    <button class="btn btn-danger" onclick="add_content()">글 쓰기</button>
     <!-- 글의 목록이 나타나는 테이블을 생성 -->
-    <table border="1">
+    <table class="table">
         <tr>
             <th>
                 글 번호

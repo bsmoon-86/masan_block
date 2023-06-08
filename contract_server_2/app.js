@@ -14,6 +14,9 @@ app.set("view engine", 'ejs')
 // post 방식으로 유저가 데이터를 보낼때 json의 형태로 데이터를 받기위한 설정
 app.use(express.urlencoded({extended:false}))
 
+// 외부의 js, css, img 파일과 같은 정적 파일의 기본 경로를 설정
+app.use(express.static('public'))
+
 // dotenv를 사용하겠다. 
 require('dotenv').config()
 

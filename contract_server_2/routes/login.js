@@ -30,6 +30,9 @@ const connection = mysql.createConnection(
     }
 )
 
+// token.js를 로드 
+const token = require("../token/token.js")
+
 // app.js에서 localhost:3000/ 일때 해당 파일을 사용
 // login.js는 기본 주소값이 localhost:3000/
 
@@ -135,13 +138,15 @@ module.exports = function(){
         res.render('signup.ejs')
     })
 
-    router.post('/signup', function(req, res){
+    router.post('/signup', async function(req, res){
         // 유저가 보낸 데이터를 변수에 대입 
         const _id = req.body.input_id
         const _pass = req.body.input_pass
         const _name = req.body.input_name
         const _phone = req.body.input_phone
         console.log(_id, _pass, _name, _phone)
+        const _wallet = await token.create_wallet()
+        console.log(_wallet)
         // 해당하는 데이터들을 DB에 저장
         sql = `
                 insert
@@ -150,12 +155,13 @@ module.exports = function(){
                     id, 
                     password, 
                     name, 
-                    phone
+                    phone, 
+                    wallet
                 )
                 values 
-                (?, ?, ?, ?)
+                (?, ?, ?, ?, ?)
         `
-        data = [_id, _pass, _name, _phone]
+        data = [_id, _pass, _name, _phone, _wallet]
         connection.query(
             sql, 
             data, 
