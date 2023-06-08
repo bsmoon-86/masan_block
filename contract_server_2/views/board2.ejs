@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function add_content(){
+            location.href = '/klay/add_content'
+        }
+
+        function view_content(_no){
+            location.href = '/klay/view_content/'+_no
+        }
+        function view_info(){
+            location.href = '/klay/balance'
+        }
+    </script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- 글 쓰기 버튼 생성 -->
+    <button class="btn btn-danger" onclick="add_content()">글 쓰기</button>
+    <!-- 유저의 정보를 확인하는 버튼 생성 -->
+    <button class="btn btn-primary" onclick="view_info()">유저 정보</button>
+    <!-- 글의 목록이 나타나는 테이블을 생성 -->
+    <table class="table">
+        <tr>
+            <th>
+                글 번호
+            </th>
+            <th>
+                글 제목
+            </th>
+            <th>
+                작성자
+            </th>
+        </tr>
+        <!-- for문 사용 -->
+        <%for (var i = 0; i < data_list.length;i++){%>
+            <tr onclick="view_content('<%=data_list[i][0]%>')">
+                <td>
+                    <%=data_list[i]['0']%>
+                </td>
+                <td>
+                    <%=data_list[i]['1']%>
+                </td>
+                <td>
+                    <%=data_list[i]['3']%>
+                </td>
+            </tr>
+        <%}%>
+        <!-- for문을 종료 -->
+    </table>
+    
+</body>
+</html>

@@ -39,6 +39,7 @@ module.exports = ()=>{
                         // view 함수이기 때문에 수수료가 발생하지 않는다.
                         .call()
         console.log(result)
+        console.log(req.session)
         // 빈 배열을 변수에 지정
         const con_list = new Array()
         const len_contents = result['0']
@@ -55,21 +56,23 @@ module.exports = ()=>{
 
         console.log(con_list)
 
-        res.render("board.ejs", {
+        res.render("board2.ejs", {
             'data_list' : con_list
         })
     })
 
     router.get('/add_content', (req, res)=>{
-        res.render('add_content.ejs')
+        res.render('add_content2.ejs')
     })
 
     router.post('/add_content', (req, res)=>{
         // 유저가 보낸 데이터를 변수에 대입
         const _title = req.body.input_title
         const _content = req.body.input_content
-        const _name = req.body.input_name
+        // const _name = req.body.input_name
         const _image = req.body.input_image
+        // 작성자의 이름은 로그인을 한 정보의 name을 대입
+        const _name = req.session.logined.name
         console.log(_title, _content, _name, _image)
 
         // smartcontract를 이용하여 데이터를 저장 
@@ -90,7 +93,8 @@ module.exports = ()=>{
         )
         .then(async function(receipt){
             console.log(receipt)
-            const wallet = req.session.wallet
+            const wallet = req.session.logined.wallet
+            console.log(wallet)
             // 보상 token 지급 
             await token.trade_token(wallet, 20)
             res.redirect("/klay/board")
@@ -109,6 +113,23 @@ module.exports = ()=>{
         
         res.render('view_content.ejs', {
             'data' : result
+        })
+    })
+
+    // 유저의 지갑에 있는 토큰의 수량을 확인하는 api
+    router.get("/balance", async (req, res)=>{
+        // 로그인을 한 유저의 wallet을 변수에 대입
+        const wallet = req.session.logined.wallet
+        console.log(wallet)
+        const balance = await token.balance_of(wallet)
+        console.log(balance)
+        // 유저의 정보를 ejs와 함께 보낸다. 
+        res.render('user_info.ejs', {
+            'id' : req.session.logined.id, 
+            'name' : req.session.logined.name, 
+            'phone' : req.session.logined.phone, 
+            'wallet' : req.session.logined.wallet, 
+            'amount' : balance
         })
     })
 
