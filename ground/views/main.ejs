@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function charge(){
+            location.href = '/contract/charge'
+        }
+    </script>
+</head>
+<body>
+    <p>
+        <%=info.name%>님 환영합니다. 
+    </p>
+    <p>
+        보유한 토큰의 양 : <%=balance%>
+    </p>
+    <button onclick="charge()">
+        토큰 충전하기
+    </button>
+</body>
+</html>
