@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function signup(){
+            location.href = '/signup'
+        }
+    </script>
+</head>
+<body>
+    <!-- 로그인을 위한 id와 password를 입력하는 공간 -->
+    <form action="/login" method="post">
+        <label>id</label>
+        <input type="text" name="_id"><br>
+        <label>password</label>
+        <input type="password" name="_pass"><br>
+        <input type="submit" value="로그인">
+    </form>
+    <!-- 회원가입 페이지로 이동하는 버튼 생성 -->
+    <button onclick="signup()">회원가입</button>
+</body>
+</html>

@@ -38,6 +38,7 @@ contract board2{
         // mapping에 정상적으로 데이터가 담기면 글 번호를 1씩 증가
         count++;
     }
+
     // 게시글의 정보를 리턴해주는 함수
     function view_content(uint _no) public view returns (
         uint,
