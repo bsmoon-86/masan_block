@@ -134,5 +134,22 @@ module.exports = function(){
         })
     })
 
+    router.get('/info', async function(req, res){
+        if(!req.session.logined){
+            res.redirect("/")
+        }else{
+            // 유저의 정보는 -> req.session.logined
+            // 토큰의 수량은? -> token.js -> balanceOf(지갑 주소)
+            const wallet = req.session.logined.wallet
+            const amount = await token.balance_of(wallet)
+            console.log(amount)
+            res.render('info', {
+                'user': req.session.logined, 
+                'amount' : amount
+            })
+        }
+    
+    })
+
     return router
 }

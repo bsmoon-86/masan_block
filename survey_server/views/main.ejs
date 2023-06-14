@@ -15,6 +15,9 @@
         function logout(){
             location.href = '/logout'
         }
+        function info(){
+            location.href = '/info'
+        }
     </script>
 </head>
 <body>
@@ -22,6 +25,7 @@
     <!-- 설문 참여 버튼을 클릭하면 설문을 하였는지 유무 판단 -->
     <button onclick="add_survey()">설문 참여</button>
     <button onclick="list_survey()">설문 내역</button>
+    <button onclick="info()">유저 정보</button>
     <button onclick="logout()">로그 아웃</button>
 </body>
 </html>

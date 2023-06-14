@@ -22,6 +22,9 @@ const account = caver.klay.accounts.createWithAccountKey(
 // 지갑에 등록
 caver.klay.accounts.wallet.add(account)
 
+// token.js 로드 
+const token = require('../token/token')
+
 module.exports =function(){
     
     // 이 파일은 localhost:3000/survey 가 기본 경로
@@ -87,7 +90,50 @@ module.exports =function(){
                             }
                         )
         console.log(receipt)
+        // 설문이 완료가 된 경우 보상으로 토큰을 지급 
+        // token.js 안에 있는 trade_token(지갑주소, 토큰양)
+        // 토큰의 양은 10개로 고정 
+        // 지갑의 주소는 ??? -> req.session.logined.wallet
+        const wallet = req.session.logined.wallet
+        const receipt2 = await token.trade_token(wallet, 10)
+        console.log(receipt2)
         res.redirect('/survey')
+    })
+
+    // 설문의 전체내역을 확인하는 api 생성
+    router.get("/list", async function(req, res){
+        if(!req.session.logined){
+            res.redirect("/")
+        }else{
+            // contract에 있는 view_list() 함수를 호출하여 등록된 설문의 개수
+            // 설문에 참여한 아이디 리스트 변수에 대입
+            const result = await smartcontract
+                            .methods
+                            .view_list()
+                            .call()
+            // result는 데이터의 형태가 {'0':[id_list], '1':count}
+            console.log(result)
+            const id_list = result['0']
+            const count = result['1']
+            // 반복문 실행 (0부터 count보다 작을때)
+            // 새로운 배열에 설문 내역을 추가
+            let survey_list = new Array()
+            for (var i =0; i < count;i++){
+                const input_id = id_list[i]
+                const data = await smartcontract
+                            .methods
+                            .view_survey(input_id)
+                            .call()
+                // data 값은 -> {'0':name, '1':gender, '2':age, '3':coffee}
+                survey_list.push(data)
+            }
+            console.log(survey_list)
+            res.render('list', {
+                'list' : survey_list
+            })
+
+        }
+
     })
 
 
