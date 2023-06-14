@@ -41,12 +41,18 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
+require('dotenv').config();
 // const { MNEMONIC, PROJECT_ID } = process.env;
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('truffle-hdwallet-provider-klaytn')
+const URL = 'https://api.baobab.klaytn.net:8651'
+
+// 지갑의 private key
+const private_key = process.env.private_key
 
 module.exports = {
+
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -58,6 +64,12 @@ module.exports = {
    */
 
   networks: {
+    baobab : {
+      provider : new HDWalletProvider(private_key, URL), 
+      network_id : 1001, 
+      gas : 2000000, 
+      gasPrice : null
+    }
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache, geth, or parity) in a separate terminal

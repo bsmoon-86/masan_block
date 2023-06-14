@@ -67,14 +67,14 @@ contract survey{
     // 설문의 참여 여부를 알려주는 함수 
     function check_survey(
         string memory _id
-    ) public view returns(string memory){
+    ) public view returns(bool){
         // 설문의 참여 여부 확인 하려면?
         // 입력받은 id 값을 기준으로 mapping data 확인
         // 숫자형태의 데이터에서는 데이터가 존재하지 않는다면 0으로 표시 
         if (surveys[_id].gender == 0){
-            return '설문 참가 내역 없음';
+            return true;
         }else{
-            return '설문 참사 내역 있음';
+            return false;
         }
     }
 
@@ -92,6 +92,16 @@ contract survey{
             surveys[_id].coffee,
             surveys[_id].gender, 
             surveys[_id].age
+        );
+    }
+
+    function view_list() public view returns(
+        string[] memory, 
+        uint
+    ){
+        return (
+            survey_list, 
+            count
         );
     }
 

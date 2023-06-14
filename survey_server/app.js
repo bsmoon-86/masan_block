@@ -10,6 +10,9 @@ app.set('views', __dirname+'/views')
 // 뷰 엔진 지정
 app.set('view engine', 'ejs')
 
+// 외부의 js, css, img 파일들의 기본 경로 설정
+app.use(express.static('public'))
+
 
 // post 형태의 데이터를 json 형태로 변환 
 app.use(express.urlencoded({extended:true}))
@@ -27,7 +30,7 @@ app.use(
             resave : false, 
             saveUninitialized : false, 
             cookie : {
-                maxAge : 30000 //임시 파일의 수명 (1000당 1초)
+                maxAge : 300000 //임시 파일의 수명 (1000당 1초)
             }
         }
     )

@@ -27,7 +27,7 @@ module.exports = function(){
         // session 정보가 존재하지 않는다면 login 화면을 보여주고
         // session 정보가 존재한다면 localhost:3000/survey 주소로 이동
         if(!req.session.logined){
-            res.render('login')
+            res.render('index')
         }else{
             res.redirect('/survey')
         }
@@ -120,6 +120,18 @@ module.exports = function(){
                 }
             }
         )
+    })
+
+    // localhost:3000/logout get형태의 주소 생성
+    router.get('/logout', function(req, res){
+        // 로그아웃은 session의 data를 삭제
+        req.session.destroy(function(err){
+            if(err){
+                console.log(err)
+            }else{
+                res.redirect("/")
+            }
+        })
     })
 
     return router

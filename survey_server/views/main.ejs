@@ -5,10 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        function add_survey(){
+            location.href = '/survey/add'
+        }
+        function list_survey(){
+            location.href = '/survey/list'
+        }
+        function logout(){
+            location.href = '/logout'
+        }
+    </script>
 </head>
 <body>
     <h1>Survey Page</h1>
-    <button onclick="">설문 참여</button>
-    <button onclick="">설문 내역</button>
+    <!-- 설문 참여 버튼을 클릭하면 설문을 하였는지 유무 판단 -->
+    <button onclick="add_survey()">설문 참여</button>
+    <button onclick="list_survey()">설문 내역</button>
+    <button onclick="logout()">로그 아웃</button>
 </body>
 </html>
