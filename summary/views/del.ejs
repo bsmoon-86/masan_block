@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery 라이브러리 로드 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <h1>withdraw page</h1>
+    <!-- 유저가 입력하는 공간 -->
+    <form action="/del2" method="post">
+        <label>phone</label>
+        <input type="text" name="_phone" value="<%=login_data['phone']%>" readonly><br>
+        <label>password</label>
+        <input type="password" name="_pass" id="_pass"><br>
+        <p id="check_pass">비밀번호 확인</p>
+        <input type="submit" id="_submit" value="회원 탈퇴" disabled>
+    </form>
+    <script>
+        // id가 check_pass 라는 태그를 클릭했을때 이벤트 
+        $('#check_pass').click(function(){
+            const pass = $('#_pass').val()
+            // 비동기 통신 ajax
+            $.ajax(
+                {
+                    url : '/check_pass',
+                    method : "get", 
+                    dataType : 'json', 
+                    data : {
+                        _pass : pass
+                    }
+                }
+            )
+            // 요청이 완료되고 나서 응답이 들어오는 콜백 함수
+            .done(function(result){
+                // 서버에서 password가 맞는지 판단하여 bool의 형태로 데이터를 보낸다
+                if(result){
+                    // 유저가 입력한 데이터와 session 안에 password 값이 같다면
+                    $('#check_pass').hide()
+                    $('#_submit').attr('disabled', false)
+                }else{
+                    alert('패스워드가 맞지 않습니다')
+                }
+            })
+        })
+    </script>
+</body>
+</html>

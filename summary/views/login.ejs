@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <!-- 
+        유저가 입력한 데이터를 서버에게 보내주는 태그 
+        action : 데이터를 보내줄 주소 
+        method : 데이터를 보내는 방식(get/post)
+    -->
+    <form action="/signin" method="post">
+        <!-- 실제 유저가 입력하는 공간 input 태그 -->
+        <input type="text" name="_phone"><br>
+        <input type="password" name="_pass"><br>
+        <input type="submit" value="로그인">
+    </form>
+    <!-- 일반적으로 하이퍼링크는 get의 형태로 주소를 호출 -->
+    <a href="/signup">회원 가입</a>
+</body>
+</html>
