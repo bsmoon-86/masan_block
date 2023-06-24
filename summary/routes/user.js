@@ -157,10 +157,73 @@ module.exports = ()=>{
         }
     })
 
+    // localhost:3000/del2 [post] api 생성
+    router.post('/del2', (req, res)=>{
+        // 유저가 보낸 데이터를 변수에 대입 & 확인
+        const input_phone = req.body._phone
+        const input_pass = req.body._pass
+        console.log(input_phone, input_pass)
+
+        // 데이터를 삭제
+        const sql = `
+            delete 
+            from 
+            user2 
+            where 
+            phone = ? 
+            and 
+            password = ?
+        `
+        const values = [input_phone, input_pass]
+        connection.query(
+            sql, 
+            values, 
+            (err, result)=>{
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    req.session.destroy((err2)=>{
+                        if(err2){
+                            console.log(err2)
+                        }else{
+                            // 로그인 화면으로 돌아간다
+                            res.redirect("/")
+                        }
+                    })
+                }
+            }
+        )
+    })
+
+    router.get('/logout', (req, res)=>{
+        req.session.destroy((err2)=>{
+            if(err2){
+                console.log(err2)
+            }else{
+                // 로그인 화면으로 돌아간다
+                res.redirect("/")
+            }
+        })
+    })
+
     router.get('/check_pass', (req, res)=>{
         const input_pass = req.query._pass
         console.log(input_pass)
         res.send(input_pass == req.session.logined.password)
+    })
+
+
+    // localhost:3000/info [get] api 생성
+    router.get('/info', (req, res)=>{
+        if(!req.session.logined){
+            res.redirect("/")
+        }else{
+            res.render('info.ejs', {
+                login_data : req.session.logined
+            })
+        }
     })
 
     // api가 생성된 router를 리턴

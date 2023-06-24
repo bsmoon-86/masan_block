@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery 라이브러리 로드 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function check(login_pass){
+            const origin = $('#origin_pass').val()
+            if(login_pass == origin){
+                $('#check_pass').hide()
+                $('#_submit').attr('disabled', false)
+                $('#origin_pass').attr('readonly', true)
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>My Page</h1>
+    <p>Phone : (<%=login_data['phone']%>)</p>
+    <p>Name : (<%=login_data['name']%>)</p>
+
+    <h2>Change Password</h2>
+    <form action="/change_pass" method="post">
+        <label>origin password</label>
+        <input type="password" id="origin_pass"><br>
+        <label>new password</label>
+        <input type="password" name="_pass"><br>
+        <p onclick="check('<%=login_data.password')" id="check_pass">패스워드 확인</p>
+        <input type="submit" id="_submit" value="패스워드 변경" disabled>
+    </form>
+</body>
+</html>

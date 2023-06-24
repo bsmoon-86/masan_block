@@ -8,6 +8,12 @@
         function del(){
             location.href = '/del'
         }
+        function logout(){
+            location.href= '/logout'
+        }
+        function info(){
+            location.href = '/info'
+        }
     </script>
 </head>
 <body>
@@ -15,5 +21,7 @@
     <!-- html에서 js를 사용하려면 %를 사용 -->
     <p>(<%=login_data['name']%>)님 환영합니다.</p>
     <button onclick="del()">회원탈퇴</button>
+    <button onclick="logout()">로그 아웃</button>
+    <button onclick="info()">내 정보</button>
 </body>
 </html>
