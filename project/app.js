@@ -14,6 +14,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 
+
 // post 형태의 데이터를 json 형태로 변환 
 app.use(express.urlencoded({extended:true}))
 
@@ -47,8 +48,6 @@ app.use("/", user)
 const trade = require('./routes/trade')()
 app.use("/trade", trade)
 
-// const food = require('./routes/food')()
-// app.use("/food", food)
 
 
 // 서버 시작 

@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 목록</title>
     <%- include('header.ejs') %>
+    <script>
+        function good_info(no){
+            location.href = '/trade/info/'+no
+        }
+    </script>
 </head>
 
 <body>
@@ -26,11 +31,11 @@
                 </tr>
             <%} else {%>
                 <% for (var i =0; i < list.length; i++) { %>
-                <tr>
+                <tr onclick="good_info('<%=list[i].no%>')">
                     <td><%=list[i]['no']%></td>
                     <td><%=list[i]['name']%></td>
                     <td><%=list[i]['price']%></td>
-                    <td><%=list[i]['create_dt']%></td>
+                    <td><%=list[i]['createdt']%></td>
                     <td><%=list[i]['status']%></td>
                     <td><%=list[i]['duedate']%></td>
                 </tr>

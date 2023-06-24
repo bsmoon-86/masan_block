@@ -3,12 +3,23 @@ const router = express.Router()
 
 // 파일 업로드를 사용하기위한 모듈
 const multer = require('multer')
-// 유저가 보낸 파일을 저장할 위치를 설정
-const upload = multer(
+const storage = multer.diskStorage(
     {
-        dest : 'uploads/'
+        destination : function(req, file, cb){
+            cb(null, 'public/uploads/')
+        }, 
+        filename : function(req, file, cb){
+            cb(null, file.originalname)
+        }
     }
 )
+// 유저가 보낸 파일을 저장할 위치를 설정
+const upload = multer({
+    storage : storage
+})
+
+const moment = require('moment')
+let date = moment()
 
 
 // mysql server와의 연동
@@ -74,10 +85,149 @@ module.exports = ()=>{
         const input_explain = req.body._explain
         const input_duedate = req.body._duedate
         const input_image = req.file.filename
-        console.log(input_name, input_price, input_explain, input_duedate, input_image)
+        const input_create_dt = date.format('YYYY-MM-DD hh:mm:ss')
+        const input_writer = req.session.logined['0']        
+        console.log(
+            input_name, 
+            input_price, 
+            input_explain, 
+            input_duedate, 
+            input_image, 
+            input_create_dt, 
+            input_writer
+        )
 
-        res.redirect('/')
 
+        const sql = `
+            insert 
+            into 
+            goods(
+                name, 
+                price, 
+                content, 
+                createdt, 
+                duedate, 
+                img, 
+                writer
+            )
+            values (?, ?, ?, ?, ?, ?, ?)
+        `
+        const values = [
+            input_name, 
+            input_price, 
+            input_explain, 
+            input_create_dt, 
+            input_duedate, 
+            input_image, 
+            input_writer
+        ]
+        connection.query(
+            sql, 
+            values, 
+            function(err, result){
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    res.redirect('/trade/list')
+                }
+            }
+        )
+
+
+    })
+
+    // localhost:3000/trade/info [get] api 생성
+    router.get('/info/:_no', function(req, res){
+        const input_no = req.params._no
+        console.log(input_no)
+
+        const sql = `
+            select 
+            * 
+            from 
+            goods 
+            where 
+            no = ?
+        `
+        const values = [input_no]
+
+        connection.query(
+            sql, 
+            values, 
+            function(err, result){
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    res.render('detail.ejs', {
+                        data : result[0], 
+                        login : req.session.logined
+                    })
+                }
+            }
+        )
+    })
+
+    // localhost:3000/reservation [get] api 생성
+    router.get('/reservation/:_no', function(req, res){
+        const input_no = req.params._no
+        console.log(input_no)
+
+        const sql = `
+            update 
+            goods 
+            set 
+            status = 1 
+            where 
+            no = ?
+        `
+        const values = [input_no]
+        connection.query(
+            sql, 
+            values, 
+            function(err, result){
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    res.redirect('/trade/info/'+input_no)
+                }
+            }
+        )
+    })
+
+    // localhost:3000/confirm [get] api 생성
+    router.get('/confirm/:_no', function(req, res){
+        const input_no = req.params._no
+        console.log(input_no)
+
+        const sql = `
+            update 
+            goods 
+            set 
+            status = 2 
+            where 
+            no = ?
+        `
+        const values = [input_no]
+
+        connection.query(
+            sql, 
+            values, 
+            function(err, result){
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    res.redirect('/trade/info/'+input_no)
+                }
+            }
+        )
     })
 
 
