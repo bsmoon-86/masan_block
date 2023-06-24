@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 내역</title>
+    <%- include('header.ejs') %>
+
+</head>
+<body>
+    <h1>Product Detail</h1>
+    <form action="" method="post">
+        <div class="container">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">상품명</span>
+            <input type="text" name="_name"class="form-control" placeholder=<%=name%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">사진</span>
+            <image src="/img/<%=data[4]%>" width="300px">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">가격</span>
+            <input type="text" name="_price"class="form-control" placeholder=<%=price%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">설명</span>
+            <input type="text" name="_explain"class="form-control" placeholder=<%=explaination%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">등록자</span>
+            <input type="text" name="_registant"class="form-control" placeholder=<%=registant%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">상태</span>
+            <input type="text" name="_status"class="form-control" placeholder=<%=status%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">마감일</span>
+            <input type="text" name="_duedate"class="form-control" placeholder=<%=status%> aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        </div>
+    </form>
+    <button onclick="location.href='/list'">게시판으로</button>
+
+    <% if id == registant {$%>
+    <form action="" method="get">
+        <input type="submit" value="확정">
+    </form>
+    <%} else {%>
+    <form action="" method="get">
+        <input type="submit" value="예약">
+    </form>
+    <%}%>
+
+</body>
+</html>
+
+<img src="/img/<%=data[4]%>" width="300px">

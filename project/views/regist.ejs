@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <%- include('header.ejs') %>
+
+</head>
+<body>
+    <h1>Registe Comodity</h1>
+    <form action="/trade/regist" method="post" enctype="multipart/form-data">
+        <div class="container">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">상품명</span>
+            <input type="text" name="_name"class="form-control" placeholder="상품명을 입력하시오" aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">가격</span>
+            <input type="text" name="_price"class="form-control" placeholder="상품 가격을 입력하시오" aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">설명</span>
+            <input type="text" name="_explain"class="form-control" placeholder="상품 설명을 입력하시오" aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">판매 종료일</span>
+            <input type="text" name="_duedate"class="form-control" placeholder="판매 종료일을 입력하시오" aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">사진</span>
+            <input type="file" name="_image"class="form-control" placeholder="사진을 등록하세요" aria-label="food_code" aria-describedby="basic-addon1">
+        </div>
+            <input type="submit" value="등록">
+        </div>
+    </form>
+    
+</body>
+</html>

@@ -226,6 +226,39 @@ module.exports = ()=>{
         }
     })
 
+    // localhost:3000/change_pass [post] api 생성
+    router.post('/change_pass', (req, res)=>{
+        // 유저가 보낸 데이터를 변수대입 확인
+        const input_new_pass = req.body._pass
+        console.log(input_new_pass)
+        const phone = req.session.logined.phone
+
+        const sql = `
+            update 
+            user2 
+            set 
+            password = ?
+            where 
+            phone = ?
+        `
+        const values = [input_new_pass, phone]
+        connection.query(
+            sql,
+            values, 
+            (err, result)=>{
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                }else{
+                    console.log(result)
+                    req.session.logined.password = input_new_pass
+                    console.log(req.session.logined)
+                    res.redirect('/')
+                }
+            }
+        )
+    })
+
     // api가 생성된 router를 리턴
     return router
 }

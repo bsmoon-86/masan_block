@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 목록</title>
+    <%- include('header.ejs') %>
+</head>
+
+<body>
+    <h1>상품 내역</h1>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>registant</th>
+                <th>status</th>
+                <th>duedate</th>
+            </tr>
+            <% if(list.length == 0) {%>
+                <tr>
+                    <td colspan="6" align="center"> 내역이 없습니다. </td>
+                </tr>
+            <%} else {%>
+                <% for (var i =0; i < list.length; i++) { %>
+                <tr>
+                    <td><%=list[i]['no']%></td>
+                    <td><%=list[i]['name']%></td>
+                    <td><%=list[i]['price']%></td>
+                    <td><%=list[i]['create_dt']%></td>
+                    <td><%=list[i]['status']%></td>
+                    <td><%=list[i]['duedate']%></td>
+                </tr>
+                <% } } %>
+        </table>
+    </div>
+    <button onclick="location.href='/trade/regist'">상품등록</button>
+
+</body>
+</html>
